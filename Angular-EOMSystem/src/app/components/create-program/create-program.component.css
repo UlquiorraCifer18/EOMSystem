@@ -1,14 +1,16 @@
 .content {
   display: flex;
-  background-color: rgb(207, 207, 207);
+  background-color: rgb(246, 244, 244);
+
 }
 
 .container {
-  border: 1px solid black;
   border-radius: 10px;
-  margin-top: 50px;
+  margin-top: 10px;
   margin-bottom: 50px;
   background-color: white;
+  padding: 25px;
+  box-shadow: 8px 8px 5px 2px rgb(175, 173, 173);
 }
 
 .date-container {
@@ -23,4 +25,12 @@
   display: flex;
   justify-content: flex-end;
   margin-bottom: 20px;
+}
+label{
+  display: flex;
+  justify-content: flex-start;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  padding: 5px;
 }

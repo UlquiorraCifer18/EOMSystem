@@ -2,12 +2,21 @@
     height: 100vh;
     width: auto;
 }
+.navbar{
+    justify-content: end;
+    height: 10vh;
+    margin-top: -0.5rem;
+}
 a{
-    color: white;
-    text-decoration: underline;
+    color: rgb(116, 121, 121);
+    text-decoration: none;
 }
 a:hover{
-    color: red;
+    color: rgb(130, 105, 244);
+    text-decoration: underline;
+}
+a:active{
+    color: rgb(130, 105, 244);
     text-decoration: underline;
 }
 .img2{
@@ -17,6 +26,7 @@ a:hover{
 h6{
     color: white;
 }
+
 @media(max-width: 850px){
     .con3{
         height: 100vh;

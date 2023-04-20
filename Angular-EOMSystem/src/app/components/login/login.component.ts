@@ -33,6 +33,7 @@ export class LoginComponent {
     this.token.handle(data.access_token);
     this.auth.changeAuthStatus(true);
     this.router.navigateByUrl('dashboard');
+    alert('Login Successful!');
   }
   handleError(error: any) {
     this.error = error.error.error;

@@ -26,5 +26,6 @@ export class NavbarComponent implements OnInit {
     this.token.remove();
     this.auth.changeAuthStatus(false);
     this.router.navigateByUrl('login');
+    alert('Logout Successful!');
   }
 }

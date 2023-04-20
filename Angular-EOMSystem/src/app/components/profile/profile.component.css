@@ -1,14 +1,16 @@
 .content {
   display: flex;
   background-color: rgb(245, 245, 245);
+  height: 100vh;
 }
 
 .container {
-  border: 1px solid black;
   border-radius: 10px;
-  margin-top: 50px;
+  margin-top: 10px;
   margin-bottom: 50px;
   background-color: white;
+  padding: 50px;
+  box-shadow: 8px 8px 5px 2px rgb(175, 173, 173);
 }
 
 .profile-container {
@@ -26,5 +28,16 @@
 .button-container {
   display: flex;
   justify-content: flex-end;
+  margin-right: 190px;
   margin-bottom: 20px;
+}
+label{
+  display: flex;
+  justify-content: flex-start;
+  font-weight: bold;
+  margin-bottom: 5px;
+  padding: 5px;
+}
+.form-group{
+  margin-left: 75px;
 }

@@ -6,9 +6,10 @@
     justify-content: end;
     height: 10vh;
     margin-top: -0.5rem;
+    background-color: rgba(255, 17, 0, 0.374);
 }
 a{
-    color: rgb(116, 121, 121);
+    color: rgb(255, 255, 255);
     text-decoration: none;
 }
 a:hover{

@@ -16,6 +16,10 @@ import { ProgramViewComponent } from './components/program-view/program-view.com
 import { CreateProgramComponent } from './components/create-program/create-program.component';
 import { ManagePartnersComponent } from './components/manage-partners/manage-partners.component';
 import { AddMemberComponent } from './components/add-member/add-member.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ChartModule, HIGHCHARTS_MODULES } from 'angular-highcharts';
+import * as more from 'highcharts/highcharts-more.src';
+import * as exporting from 'highcharts/modules/exporting.src';
 
 @NgModule({
   declarations: [
@@ -37,8 +41,12 @@ import { AddMemberComponent } from './components/add-member/add-member.component
     NgbModule,
     FormsModule,
     HttpClientModule,
+    BrowserModule,
+    FontAwesomeModule,
+    ChartModule,
   ],
-  providers: [],
+  providers: [{ provide: HIGHCHARTS_MODULES, useFactory: () => [ more, exporting ] }],
   bootstrap: [AppComponent],
+  
 })
 export class AppModule {}

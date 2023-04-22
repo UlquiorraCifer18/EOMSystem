@@ -1,6 +1,7 @@
-<section class="content">
+<div class="content">
   <app-side-nav></app-side-nav>
   <div class="container">
+    <div class="container1">
     <h5>All Programs</h5>
     <div class="con">
       <button class="btn btn-primary" routerLink="/create-program">
@@ -10,28 +11,51 @@
     <div class="card-container">
       <div class="card"  *ngFor="let program of programs">
         <div class="card-body">
-          <div class="img-container">
-            <img src="#" alt="image" />
-          </div>
           <div>
             <label class="title">{{ program.title }}</label>
           </div>
-          <div>
+          <div class="img-container">
+            <img src="#" alt="image" />
+          </div>
+
+          <div class="butcon">
             <button
               class="btn btn-primary"
               routerLink="/dashboard/program/{{ program.id }}"
+              id="btn"
             >
               View
             </button>
-          </div>
-          <div>
-            <button class="btn btn-primary" routerLink="">Edit</button>
-          </div>
-          <div>
-            <button class="btn btn-primary" routerLink="">Delete</button>
-          </div>
+            <button class="btn btn-primary" id="btn1" routerLink="">Edit</button>
+            <button class="btn btn-primary" id="btn1" routerLink="">Delete</button>
+        </div>
         </div>
       </div>
     </div>
+    </div>
+    
   </div>
-</section>
+  <div class="container2">
+    <h5>Announcements:</h5>
+    <div class="con">
+    </div>
+    <div class="card-container">
+        <div class="card-body">
+          <div class="card2">
+          <p>Sample announcement....</p>
+          <p class="red">30days</p>
+          </div>
+        </div>
+    </div>
+    
+  </div>
+    <div class="container3">
+      <div class="card-container">
+          <div class="card-body">
+              <div [chart]="chart"></div>
+          </div>
+      </div>
+      </div>
+
+</div>
+

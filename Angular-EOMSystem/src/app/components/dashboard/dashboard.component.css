@@ -6,9 +6,12 @@
 }
 
 
-.container1{
+.container{
   display: flex;
   align-items: space-between;
+  flex-direction: column;
+}
+.container1{
   flex-direction: column;
   border-radius: 10px;
   height: 350px;
@@ -25,12 +28,36 @@
     width: 590px;
   }
 }
+.botcon1{
+  display: flex;
+  align-items: space-between;
+  flex-direction: column;
+
+}
 .container2 {
+
+  border-radius: 10px;
+  height: 350px;
+  margin: 10px;
+  width: 350px;
+  box-shadow: 5px 5px 5px #939393;
+  background-color: white;
+  @media only screen and (max-width: 1700px){
+    width: 790px;
+  }
+  @media only screen and (max-width: 1500px){
+    width: 340px;
+  }
+  @media only screen and (max-width: 1400px){
+    width: 390px;
+  }
+
+}
+.container3 {
   flex-direction: column;
   border-radius: 10px;
   height: 350px;
-  margin-top: 10px;
-  width: 800px;
+  margin-top: 40px;
   box-shadow: 5px 5px 5px #939393;
   background-color: white;
   @media only screen and (max-width: 1700px){
@@ -44,24 +71,21 @@
   }
 
 }
-.container3 {
-  position: absolute;
-  flex-direction: column;
-  display: flex;
+.container4 {
   border-radius: 10px;
   height: 350px;
-  margin-top: 380px;
-  margin-left: 375px;
+  margin: 10px;
   box-shadow: 5px 5px 5px #939393;
   background-color: white;
+  width: 350px;
   @media only screen and (max-width: 1700px){
-    width: 750px;
+    width: 390px;
   }
   @media only screen and (max-width: 1500px){
-    width: 690px;
+    width: 340px;
   }
   @media only screen and (max-width: 1400px){
-    width: 590px;
+    width: 390px;
   }
 
 }
@@ -122,4 +146,18 @@ h5 {
 .red{
   color: red;
   margin-left: 20px;
+}
+.chart{
+  display: flex;
+  height: 350px;
+  @media only screen and (max-width: 1700px){
+    width: 790px;
+  }
+  @media only screen and (max-width: 1500px){
+    width: 690px;
+  }
+  @media only screen and (max-width: 1400px){
+    width: 590px;
+  }
+
 }

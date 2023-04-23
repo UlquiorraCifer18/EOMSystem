@@ -31,7 +31,6 @@
   margin-right: 190px;
   margin-bottom: 20px;
 }
-<<<<<<< HEAD
 label{
   display: flex;
   justify-content: flex-start;
@@ -41,12 +40,4 @@ label{
 }
 .form-group{
   margin-left: 75px;
-=======
-.circular-image {
-  display: block;
-  width: 100px; /* adjust as needed */
-  height: 100px; /* adjust as needed */
-  object-fit: cover;
-  border-radius: 50%;
->>>>>>> fdf3af1ac9f2ce68ce4937acaf83195523bd6d69
 }

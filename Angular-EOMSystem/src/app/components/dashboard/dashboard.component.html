@@ -1,10 +1,10 @@
-<div class="content">
+<div class="content" >
   <app-side-nav></app-side-nav>
   <div class="container">
     <div class="container1">
     <h5>All Programs</h5>
     <div class="con">
-      <button class="btn btn-primary" routerLink="/create-program">
+      <button class="btn btn-primary" routerLink="/dashboard/create-program">
         Add Program
       </button>
     </div>
@@ -26,14 +26,14 @@
             >
               View
             </button>
-            <button class="btn btn-primary" id="btn1" routerLink="">Edit</button>
+            <button class="btn btn-primary" id="btn" routerLink="dashboard/program/edit/{{ program.id }}">Edit</button>
             <button class="btn btn-primary" id="btn1" routerLink="">Delete</button>
         </div>
         </div>
       </div>
     </div>
     
-    <div class="container3">
+    <div class="container3" *ngIf="loggedIn ? (isAdmin ? true : false) : false">
       <div class="card-container">
           <div class="card-body">
               <div class="chart" [chart]="chart"></div>
@@ -44,19 +44,49 @@
       </div>
 <div class="botcon1">
       <div class="container2">
-    <h5>Announcements:</h5>
     <div class="card-container">
         <div class="card-body">
           <div class="card2">
-          <p>Sample announcement....</p>
-          <p class="red">30days</p>
+            <div class="card" style="width: 45rem">
+              <div class="card-header">Announcements</div>
+              <div class="card-body">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Name</th>
+                      <th scope="col">Moa File</th>
+                      <th scope="col">Start of Partnership</th>
+                      <th scope="col">End of Partnership</th>
+                      <th scope="col">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let exmoa of exmoas">
+                      <td>{{ exmoa.name }}</td>
+                      <td>{{ exmoa.MoaFile }}</td>
+                      <td>{{ exmoa.startPartnership }}</td>
+                      <td>{{ exmoa.endPartnership }}</td>
+                      <td>
+                        <button
+                          class="btn btn-primary"
+                          routerLink="/partner/renew/{{ exmoa.id }}"
+                        >
+                          Renew
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            
           </div>
         </div>
         </div>
         
         
     </div>
-    <div class="container4">
+    <div class="container4" *ngIf="loggedIn ? (isAdmin ? true : false) : false">
       <h5>Faculty and Partners Members Summary</h5>
       <div class="card-container">
           <div class="card-body">

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BackendService } from '../../services/backend.service';
 import { Chart } from 'angular-highcharts';
+import { AuthService } from '../../services/auth.service';
 import { ChartModule, HIGHCHARTS_MODULES } from 'angular-highcharts';
 import * as more from 'highcharts/highcharts-more.src';
 import * as exporting from 'highcharts/modules/exporting.src';  
@@ -14,19 +15,26 @@ import * as exporting from 'highcharts/modules/exporting.src';
     <div [chart]="chart"></div>`
 })
 export class DashboardComponent implements OnInit {
-  constructor(private backend: BackendService) {}
+  constructor(private backend: BackendService,
+    private auth: AuthService,) {}
 
   isAdmin = false;
+  public loggedIn: boolean = false;
   programs: any[] = [];
   notification: any;
 
   //faculty properties
   leadPrograms: any[] = [];
   memberPrograms: any[] = [];
+  exmoas: any[] = [];
 
   ngOnInit(): void {
     this.backend.programs().subscribe({
       next: (data) => (this.programs = Object.values(data)),
+    });
+    this.backend.expiringMoa().subscribe({
+      next: (data) => (this.exmoas = Object.values(data)),
+      error: (error) => console.log(error),
     });
     this.notify(true);
     this.backend.userRole().subscribe((data: { role: number }) => {
@@ -39,6 +47,14 @@ export class DashboardComponent implements OnInit {
     });
     this.backend.programBymember().subscribe((data) => {
       this.memberPrograms = Object.values(data);
+    });
+    this.auth.authStatus.subscribe((value) => {
+      this.loggedIn = value;
+    });
+    this.backend.userRole().subscribe((data: { role: number }) => {
+      if (data.role === 1) {
+        this.isAdmin = true;
+      }
     });
   }
 

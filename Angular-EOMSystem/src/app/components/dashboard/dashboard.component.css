@@ -43,13 +43,13 @@
   box-shadow: 5px 5px 5px #939393;
   background-color: white;
   @media only screen and (max-width: 1700px){
-    width: 790px;
+    width: 390px;
   }
   @media only screen and (max-width: 1500px){
     width: 340px;
   }
   @media only screen and (max-width: 1400px){
-    width: 390px;
+    width: 340px;
   }
 
 }

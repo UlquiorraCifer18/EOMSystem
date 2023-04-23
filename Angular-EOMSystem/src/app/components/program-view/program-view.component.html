@@ -1,36 +1,68 @@
 <section class="content">
   <app-side-nav></app-side-nav>
   <div class="container" *ngFor="let program of programs">
-    <h4>{{ program.title }}</h4>
+    <h4 id="title">{{ program.title }}</h4>
 
     <br />
+    <button class="btn btn-primary" routerLink="terminal-report">
+      Terminal Report
+    </button>
     <table class="table">
       <thead>
         <tr>
           <th scope="col">Place</th>
+<<<<<<< HEAD
           <th scope="col">Program Lead</th>
           <th scope="col">Program Flow</th>
+=======
+          <th scope="col">Prgoram Lead</th>
+>>>>>>> fdf3af1ac9f2ce68ce4937acaf83195523bd6d69
           <th scope="col">Additional Details</th>
-          <th scope="col">Actions</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>{{ program.place }}</td>
           <td>{{ programLeader }}</td>
-          <td>{{ program.flow }}</td>
           <td>{{ program.additionalDetail }}</td>
+        </tr>
+      </tbody>
+    </table>
 
+    <button class="btn btn-primary" routerLink="add-flow" *ngIf="isAdmin">
+      Add Flow
+    </button>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Event</th>
+          <th scope="col">Remarks</th>
+          <th scope="col">Time</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let flow of programFlows">
+          <td>{{ flow.event }}</td>
+          <td>{{ flow.remarks }}</td>
+          <td>{{ flow.time }}</td>
           <td>
-            <button type="button" class="btn btn-success">Add</button>
-            <button type="button" class="btn btn-primary">Update</button>
-            <button type="button" class="btn btn-danger">Delete</button>
+            <button
+              type="button"
+              class="btn btn-danger"
+              (click)="deleteFlow(flow.id)"
+              *ngIf="isAdmin"
+            >
+              Delete
+            </button>
           </td>
         </tr>
       </tbody>
     </table>
 
-    <button class="btn btn-primary" routerLink="add-partner">Add Member</button>
+    <button class="btn btn-primary" routerLink="add-member" *ngIf="isAdmin">
+      Add Member
+    </button>
     <table class="table">
       <thead>
         <tr>
@@ -42,39 +74,85 @@
         <tr *ngFor="let member of programMembers">
           <td>{{ member.name }}</td>
           <td>
-            <button type="button" class="btn btn-success">Add</button>
-            <button type="button" class="btn btn-primary">Update</button>
-            <button type="button" class="btn btn-danger">Delete</button>
+            <button
+              type="button"
+              class="btn btn-danger"
+              (click)="deleteMember(program.id, member.id)"
+              *ngIf="isAdmin"
+            >
+              Delete
+            </button>
           </td>
         </tr>
       </tbody>
     </table>
-
+    <button
+      type="button"
+      class="btn btn-success"
+      routerLink="add-partner"
+      *ngIf="isAdmin"
+    >
+      Add Partner
+    </button>
     <table class="table">
       <thead>
         <tr>
           <th scope="col">Program Partners</th>
+          <th scope="col">Address</th>
+          <th scope="col">Contact Person</th>
+          <th scope="col">Contact Number</th>
+          <th scope="col">Moa File</th>
+          <th scope="col">Start of partnership</th>
+          <th scope="col">End of partnership</th>
           <th scope="col">Action</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let partner of programPartners">
+        <tr *ngFor="let partner of programPartners; let i = index">
           <td>{{ partner.name }}</td>
+          <td>{{ partner.address }}</td>
+          <td>{{ partner.contactPerson }}</td>
+          <td>{{ partner.contactNumber }}</td>
           <td>
-            <button type="button" class="btn btn-success">Add</button>
+            <a
+              (click)="partnerMoa($event, i)"
+              [href]="moaFile"
+              target="_blank"
+              >{{ partner.MoaFile }}</a
+            >
+          </td>
+          <td>{{ partner.startPartnership }}</td>
+          <td>{{ partner.endPartnership }}</td>
+
+          <td>
             <button
               type="button"
               class="btn btn-primary"
-              routerLink="/dashboard/program/manage-partners/{{ partner.id }}"
+              routerLink="/dashboard/program/{{ partner.id }}/manage-partners"
+              *ngIf="isAdmin"
             >
               Update
             </button>
-            <button type="button" class="btn btn-danger">Delete</button>
+            <button
+              type="button"
+              class="btn btn-danger"
+              (click)="deletePartner(partner.id)"
+              *ngIf="isAdmin"
+            >
+              Delete
+            </button>
           </td>
         </tr>
       </tbody>
     </table>
-
+    <button
+      type="button"
+      class="btn btn-success"
+      routerLink="add-participant"
+      *ngIf="isAdmin"
+    >
+      Add Participant
+    </button>
     <table class="table">
       <thead>
         <tr>
@@ -86,30 +164,74 @@
         <tr *ngFor="let participant of programParticipants">
           <td>{{ participant.name }}</td>
           <td>
-            <button type="button" class="btn btn-success">Add</button>
-            <button type="button" class="btn btn-primary">Update</button>
-            <button type="button" class="btn btn-danger">Delete</button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              routerLink="/dashboard/program/{{
+                participant.id
+              }}/edit-participant"
+              *ngIf="isAdmin"
+            >
+              Update
+            </button>
+            <button
+              type="button"
+              class="btn btn-danger"
+              (click)="deleteParticipant(participant.id)"
+              *ngIf="isAdmin"
+            >
+              Delete
+            </button>
           </td>
         </tr>
       </tbody>
     </table>
-
+    <button
+      type="button"
+      class="btn btn-success"
+      routerLink="add-file"
+      *ngIf="isAdmin"
+    >
+      Add File
+    </button>
     <table class="table">
       <thead>
         <tr>
+          <th scope="col">File Names</th>
           <th scope="col">Files</th>
           <th scope="col">Action</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let file of programFiles">
+        <tr *ngFor="let file of programFiles; let i = index">
           <td>
-            <h5>{{ file.title }}</h5>
+            <p>{{ file.title }}</p>
           </td>
           <td>
-            <button type="button" class="btn btn-success">Add</button>
-            <button type="button" class="btn btn-primary">Update</button>
-            <button type="button" class="btn btn-danger">Delete</button>
+            <a
+              (click)="programFilelink($event, i)"
+              [href]="fileUrl"
+              target="_blank"
+              >{{ file.file }}</a
+            >
+          </td>
+          <td>
+            <button
+              type="button"
+              class="btn btn-primary"
+              routerLink="/dashboard/program/{{ file.id }}/edit-file"
+              *ngIf="isAdmin"
+            >
+              Update
+            </button>
+            <button
+              type="button"
+              class="btn btn-danger"
+              (click)="deleteFile(file.id)"
+              *ngIf="isAdmin"
+            >
+              Delete
+            </button>
           </td>
         </tr>
       </tbody>

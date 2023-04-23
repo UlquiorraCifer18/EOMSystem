@@ -16,10 +16,26 @@ import { ProgramViewComponent } from './components/program-view/program-view.com
 import { CreateProgramComponent } from './components/create-program/create-program.component';
 import { ManagePartnersComponent } from './components/manage-partners/manage-partners.component';
 import { AddMemberComponent } from './components/add-member/add-member.component';
+<<<<<<< HEAD
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ChartModule, HIGHCHARTS_MODULES } from 'angular-highcharts';
 import * as more from 'highcharts/highcharts-more.src';
 import * as exporting from 'highcharts/modules/exporting.src';
+=======
+import { EditProgramComponent } from './components/edit-program/edit-program.component';
+import { AddPartnerComponent } from './components/add-partner/add-partner.component';
+import { AddParticipantComponent } from './components/add-participant/add-participant.component';
+import { EditParticipantComponent } from './components/edit-participant/edit-participant.component';
+import { AddFileComponent } from './components/add-file/add-file.component';
+import { EditFileComponent } from './components/edit-file/edit-file.component';
+import { EditUserComponent } from './components/edit-user/edit-user.component';
+import { AllUsersComponent } from './components/all-users/all-users.component';
+import { AnnouncementsComponent } from './components/announcements/announcements.component';
+import { MoaRenewComponent } from './components/moa-renew/moa-renew.component';
+import { UpdateUserPasswordComponent } from './components/update-user-password/update-user-password.component';
+import { AddFlowComponent } from './components/add-flow/add-flow.component';
+import { TerminalReportComponent } from './components/terminal-report/terminal-report.component';
+>>>>>>> fdf3af1ac9f2ce68ce4937acaf83195523bd6d69
 
 @NgModule({
   declarations: [
@@ -34,6 +50,19 @@ import * as exporting from 'highcharts/modules/exporting.src';
     CreateProgramComponent,
     ManagePartnersComponent,
     AddMemberComponent,
+    EditProgramComponent,
+    AddPartnerComponent,
+    AddParticipantComponent,
+    EditParticipantComponent,
+    AddFileComponent,
+    EditFileComponent,
+    EditUserComponent,
+    AllUsersComponent,
+    AnnouncementsComponent,
+    MoaRenewComponent,
+    UpdateUserPasswordComponent,
+    AddFlowComponent,
+    TerminalReportComponent,
   ],
   imports: [
     BrowserModule,

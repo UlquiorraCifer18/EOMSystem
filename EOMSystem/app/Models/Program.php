@@ -25,12 +25,17 @@ class Program extends Model
 
     public function leader(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'leaderId','id');
     }
 
     public function participants(): HasMany
     {
         return $this->hasMany(ProgramParticipants::class);
+    }
+
+    public function flows(): HasMany
+    {
+        return $this->hasMany(ProgramFlow::class);
     }
 
     public function partners(): HasMany

@@ -12,14 +12,13 @@ export class CreateProgramComponent implements OnInit {
     endDate: null,
     place: null,
     leaderId: null,
-    flow: null,
     additionalDetail: null,
   };
 
   leaderChoices: any;
 
   constructor(private backend: BackendService) {}
-  error: any = [];
+  error: any[] = [];
   ngOnInit(): void {
     this.backend.allUsers().subscribe({
       next: (data: any) => (this.leaderChoices = data),

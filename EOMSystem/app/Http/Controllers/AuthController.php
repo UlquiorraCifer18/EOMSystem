@@ -6,6 +6,7 @@ use App\Models\User;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\Program;
@@ -28,19 +29,17 @@ class AuthController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
 
-    public function login(Request $request)
+    public function login()
     {
-
-        $user = User::where('email',$request->input('email'))->first()->status;
         $credentials = request(['email', 'password']);
-        if (! $token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Invalid Account'], 401);
-        }else{
-            if($user=='accepted'){
-                return $this->respondWithToken($token);
-            }
-            return response()->json(['error' => 'Invalid Account'], 401);
+        if (!Auth::attempt($credentials)) {
+            return response()->json(['error' => 'Invalid account credentials'], 401);
         }
+        $user = optional(User::where('email', request('email'))->first())->status;
+        if ($user !== 'accepted') {
+            return response()->json(['error' => 'Your account has not been accepted yet.'], 401);
+        }
+        return $this->respondWithToken(auth()->attempt($credentials));
     }
 
     public function editUser(Request $request,$id){
@@ -53,12 +52,12 @@ class AuthController extends Controller
         $user = User::find($id);
 
         if($request->hasFile('photo')){
-
             $file_name = $user->photo;
             $file_path = public_path('storage/userPhoto/'.$file_name);
-            unlink($file_path);
-            $user->delete();
-
+            if(File::exists(public_path('user_photos/'.$file_name))){
+                unlink($file_path);
+                $user->delete();
+            }
             $fileNameWithExt = $request->file('photo')->getClientOriginalName();
             $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
             $extension = $request->file('photo')->getClientOriginalExtension();
@@ -70,14 +69,28 @@ class AuthController extends Controller
 
         $user->name = $request->input('name');
         $user->email = $request->input('email');
-        $user->password = $request->input('password');
         $user->birthday = $request->input('birthday');
         $user->college = $request->input('college');
         $user->department = $request->input('department');
+        $user->status = $request->input('status');
         $user->photo = $fileNameToStore;
         $user->save();
 
         return response()->json(['message'=>'Account Updated']);
+    }
+
+    public function updateUserPassword(Request $request, $id){
+        if(!auth()->user()){
+            return response()->json(['message'=>'You must login']);
+        }
+        $request->validate([
+            'password'=>'required|min:8',
+            'password_confirmation'=>'required|same:password',
+        ]);
+        $user = User::find($id);
+        $user->password = $request->input('password');
+        $user->save();
+        return response()->json(['message'=>'Password set successfully']);
     }
 
     public function deleteUser($id){
@@ -90,14 +103,17 @@ class AuthController extends Controller
 
         unlink($file_path);
         $user->delete();
-        return $user->photo.' deleted.';
+
+        return User::destroy($id);
     }
 
     public function getUsers(){
         if(!auth()->user()){
             return response()->json(['message'=>'You must login']);
         }
-        $users = User::all();
+        $users = DB::table('users')
+        ->where('role', '=', '0')
+        ->get();
         return response()->json($users);
     }
 
@@ -134,7 +150,7 @@ class AuthController extends Controller
             'password_confirmation'=>'required|same:password',
             'college'=>'required',
             'department'=>'required',
-            // 'photo'=>'mimes: jpeg,jpg,png|nullable|max:1999'
+            'photo'=>'mimes: jpeg,jpg,png|nullable|max:1999'
         ]);
 
         if($request->hasFile('photo')){
@@ -176,6 +192,14 @@ class AuthController extends Controller
         return response()->json([auth()->user()]);
     }
 
+    public function userRole(){
+        if(!auth()->user()){
+            return response()->json(['message'=>'You must login']);
+        }
+        $user = auth()->user()->role;
+        return response()->json(['role'=>$user]);
+    }
+
     /**
      * Log the user out (Invalidate the token).
      *
@@ -210,7 +234,7 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
+            'expires_in' => 0
         ]);
     }
 }
